@@ -1,7 +1,7 @@
 import { Canvas } from "@react-three/fiber";
 import "./App.css";
-import { Center, OrbitControls } from "@react-three/drei";
-import Shirt from "./Shirt";
+import { Center, Environment, OrbitControls } from "@react-three/drei";
+import Shirt, { Backdrop, CameraRig } from "./Shirt";
 
 const App = ({ position = [-1, 0, 2.5], fov = 25 }) => {
   return (
@@ -12,11 +12,17 @@ const App = ({ position = [-1, 0, 2.5], fov = 25 }) => {
       }}
       eventSource={document.getElementById("root")}
       eventPrefix='client'
+      shadows
     >
-      <OrbitControls />
-      <Center>
-        <Shirt />
-      </Center>
+      <ambientLight />
+      <Environment preset='city' />
+      {/* <OrbitControls /> */}
+      <CameraRig>
+        <Center>
+          <Shirt />
+          <Backdrop />
+        </Center>
+      </CameraRig>
     </Canvas>
   );
 };

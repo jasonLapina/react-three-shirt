@@ -5,12 +5,13 @@ import {
   AiFillCamera,
   AiOutlineArrowLeft,
 } from "react-icons/ai";
-export default function Overlay() {
-  // return <Intro />;
-  return <Customizer />;
-}
 
-function Intro() {
+import { useSnapshot } from "valtio";
+import { state } from "./store";
+
+export default function Overlay() {
+  const snap = useSnapshot(state);
+
   return (
     <div className='container'>
       <header>
@@ -18,30 +19,44 @@ function Intro() {
         <AiOutlineShopping size='3em' />
       </header>
 
-      <section key='main'>
-        <div className='section--container'>
-          <div>
-            <h1>LET'S DO IT.</h1>
-          </div>
-          <div className='support--content'>
-            <div>
-              <p>
-                Create your unique and exclusive shirt with our brand-new 3D
-                customization tool. <strong>Unleash your imagination</strong>{" "}
-                and define your own style.
-              </p>
-              <button style={{ background: "black" }}>
-                CUSTOMIZE IT <AiOutlineHighlight size='1.3em' />
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
+      {snap.intro === true ? <Intro /> : <Customizer />}
     </div>
   );
 }
 
+function Intro() {
+  // const snap = useSnapshot(state);
+  const handleCustomize = () => {
+    state.intro = false;
+  };
+  return (
+    <section key='main'>
+      <div className='section--container'>
+        <div>
+          <h1>LET'S DO IT.</h1>
+        </div>
+        <div className='support--content'>
+          <div>
+            <p>
+              Create your unique and exclusive shirt with our brand-new 3D
+              customization tool. <strong>Unleash your imagination</strong> and
+              define your own style.
+            </p>
+            <button style={{ background: "black" }} onClick={handleCustomize}>
+              CUSTOMIZE IT <AiOutlineHighlight size='1.3em' />
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Customizer() {
+  // const snap = useSnapshot(state);
+  const handleBack = () => {
+    state.intro = true;
+  };
   const colors = [
     "#ccc",
     "#EFBD4E",
@@ -78,7 +93,11 @@ function Customizer() {
           DOWNLOAD
           <AiFillCamera size='1.3em' />
         </button>
-        <button className='exit' style={{ background: "black" }}>
+        <button
+          onClick={handleBack}
+          className='exit'
+          style={{ background: "black" }}
+        >
           GO BACK
           <AiOutlineArrowLeft size='1.3em' />
         </button>

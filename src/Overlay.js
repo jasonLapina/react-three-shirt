@@ -53,9 +53,13 @@ function Intro() {
 }
 
 function Customizer() {
-  // const snap = useSnapshot(state);
+  const snap = useSnapshot(state);
   const handleBack = () => {
     state.intro = true;
+  };
+
+  const handleColor = (color) => {
+    state.selectedColor = color;
   };
   const colors = [
     "#ccc",
@@ -77,7 +81,8 @@ function Customizer() {
               key={color}
               className='circle'
               style={{ background: color }}
-            ></div>
+              onClick={() => handleColor(color)}
+            />
           ))}
         </div>
         <div className='decals'>
@@ -89,14 +94,14 @@ function Customizer() {
             ))}
           </div>
         </div>
-        <button className='share' style={{ background: "black" }}>
+        <button className='share' style={{ background: snap.selectedColor }}>
           DOWNLOAD
           <AiFillCamera size='1.3em' />
         </button>
         <button
           onClick={handleBack}
           className='exit'
-          style={{ background: "black" }}
+          style={{ background: snap.selectedColor }}
         >
           GO BACK
           <AiOutlineArrowLeft size='1.3em' />

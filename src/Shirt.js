@@ -6,10 +6,14 @@ import {
 import { useFrame } from "@react-three/fiber";
 import { easing } from "maath";
 import { useRef } from "react";
+import { state } from "./store";
+import { useSnapshot } from "valtio";
+import * as THREE from "three";
 
 const Shirt = (props) => {
+  const snap = useSnapshot(state);
   const { nodes, materials } = useGLTF("/shirt_baked_collapsed.glb");
-
+  materials.lambert1.color = new THREE.Color(snap.selectedColor);
   return (
     <group {...props} dispose={null}>
       <mesh

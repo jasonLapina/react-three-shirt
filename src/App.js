@@ -1,6 +1,6 @@
 import { Canvas } from "@react-three/fiber";
 import "./App.css";
-import { Center, Environment, OrbitControls } from "@react-three/drei";
+import { Center, Environment } from "@react-three/drei";
 import Shirt, { Backdrop, CameraRig } from "./Shirt";
 
 const App = ({ position = [-1, 0, 2.5], fov = 25 }) => {
@@ -16,7 +16,7 @@ const App = ({ position = [-1, 0, 2.5], fov = 25 }) => {
     >
       <ambientLight />
       <Environment preset='city' />
-      {/* <OrbitControls /> */}
+
       <CameraRig>
         <Center>
           <Shirt />

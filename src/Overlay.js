@@ -8,6 +8,14 @@ import {
 
 import { useSnapshot } from "valtio";
 import { state } from "./store";
+import { AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
+
+const animatePresence = {
+  initial: { x: -100, opacity: 0, transition: { delay: 0.5 } },
+  animate: { x: 0, opacity: 1, transition: { delay: 0 } },
+  exit: { x: -100, opacity: 0, transition: { delay: 0 } },
+};
 
 export default function Overlay() {
   const snap = useSnapshot(state);
@@ -19,18 +27,24 @@ export default function Overlay() {
         <AiOutlineShopping size='3em' />
       </header>
 
-      {snap.intro === true ? <Intro /> : <Customizer />}
+      <AnimatePresence>
+        {snap.intro === true ? (
+          <Intro animate={animatePresence} />
+        ) : (
+          <Customizer animate={animatePresence} />
+        )}
+      </AnimatePresence>
     </div>
   );
 }
 
-function Intro() {
+function Intro({ animate }) {
   // const snap = useSnapshot(state);
   const handleCustomize = () => {
     state.intro = false;
   };
   return (
-    <section key='main'>
+    <motion.section key='main' {...animate}>
       <div className='section--container'>
         <div>
           <h1>LET'S DO IT.</h1>
@@ -48,11 +62,11 @@ function Intro() {
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }
 
-function Customizer() {
+function Customizer({ animate }) {
   const snap = useSnapshot(state);
   const handleBack = () => {
     state.intro = true;
@@ -91,7 +105,7 @@ function Customizer() {
   };
 
   return (
-    <section key='custom'>
+    <motion.section key='custom' {...animate}>
       <div className='customizer'>
         <div className='color-options'>
           {colors.map((color) => (
@@ -133,6 +147,6 @@ function Customizer() {
           <AiOutlineArrowLeft size='1.3em' />
         </button>
       </div>
-    </section>
+    </motion.section>
   );
 }

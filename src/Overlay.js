@@ -61,6 +61,11 @@ function Customizer() {
   const handleColor = (color) => {
     state.selectedColor = color;
   };
+
+  const handleDecal = (decal) => {
+    state.seletedDecal = decal;
+  };
+
   const colors = [
     "#ccc",
     "#EFBD4E",
@@ -71,6 +76,19 @@ function Customizer() {
     "Purple",
   ];
   const decals = ["react", "three2", "pmndrs"];
+
+  const handleDownload = () => {
+    const link = document.createElement("a");
+    link.setAttribute("download", "canvas.png");
+    link.setAttribute(
+      "href",
+      document
+        .querySelector("canvas")
+        .toDataURL("image/png")
+        .replace("image/png", "image/octet-stream")
+    );
+    link.click();
+  };
 
   return (
     <section key='custom'>
@@ -88,13 +106,21 @@ function Customizer() {
         <div className='decals'>
           <div className='decals--container'>
             {decals.map((decal) => (
-              <div key={decal} className='decal'>
+              <div
+                key={decal}
+                className='decal'
+                onClick={() => handleDecal(decal)}
+              >
                 <img src={decal + "_thumb.png"} alt='brand' />
               </div>
             ))}
           </div>
         </div>
-        <button className='share' style={{ background: snap.selectedColor }}>
+        <button
+          onClick={handleDownload}
+          className='share'
+          style={{ background: snap.selectedColor }}
+        >
           DOWNLOAD
           <AiFillCamera size='1.3em' />
         </button>

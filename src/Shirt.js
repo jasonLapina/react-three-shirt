@@ -2,16 +2,21 @@ import {
   AccumulativeShadows,
   RandomizedLight,
   useGLTF,
+  Decal,
+  useTexture,
 } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { easing } from "maath";
 import { useRef } from "react";
-import { state } from "./store";
 import { useSnapshot } from "valtio";
+
+import { state } from "./store";
 
 const Shirt = (props) => {
   const snap = useSnapshot(state);
   const { nodes, materials } = useGLTF("/shirt_baked_collapsed.glb");
+
+  const texture = useTexture(`${snap.seletedDecal}.png`);
 
   useFrame((_, delta) => {
     easing.dampC(materials.lambert1.color, snap.selectedColor, 0.25, delta);
@@ -24,7 +29,9 @@ const Shirt = (props) => {
         receiveShadow
         geometry={nodes.T_Shirt_male.geometry}
         material={materials.lambert1}
-      />
+      >
+        <Decal map={texture} scale={0.3} />
+      </mesh>
     </group>
   );
 };

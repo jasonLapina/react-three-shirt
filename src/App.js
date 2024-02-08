@@ -13,6 +13,9 @@ const App = ({ position = [-1, 0, 2.5], fov = 25 }) => {
       eventSource={document.getElementById("root")}
       eventPrefix='client'
       shadows
+      gl={{
+        preserveDrawingBuffer: true,
+      }}
     >
       <ambientLight />
       <Environment preset='city' />

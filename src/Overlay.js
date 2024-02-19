@@ -10,6 +10,7 @@ import { useSnapshot } from "valtio";
 import { state } from "./store";
 import { AnimatePresence } from "framer-motion";
 import { motion } from "framer-motion";
+import { Box, Button, Center, Heading, Text } from "@chakra-ui/react";
 
 const animatePresence = {
   initial: { x: -100, opacity: 0, transition: { delay: 0.5 } },
@@ -45,23 +46,52 @@ function Intro({ animate }) {
   };
   return (
     <motion.section key='main' {...animate}>
-      <div className='section--container'>
-        <div>
-          <h1>LET'S DO IT.</h1>
-        </div>
-        <div className='support--content'>
-          <div>
-            <p>
-              Create your unique and exclusive shirt with our brand-new 3D
-              customization tool. <strong>Unleash your imagination</strong> and
-              define your own style.
-            </p>
-            <button style={{ background: "black" }} onClick={handleCustomize}>
-              CUSTOMIZE IT <AiOutlineHighlight size='1.3em' />
-            </button>
-          </div>
-        </div>
-      </div>
+      <Heading
+        fontStyle='italic'
+        letterSpacing='-8px'
+        fontSize={{ md: "12vw", base: "56px" }}
+        filter='drop-shadow(2px 2px 4px magenta)'
+        pos='fixed'
+        top='20%'
+        left='10%'
+        lineHeight={{ md: "10vw", base: "40px" }}
+      >
+        LET'S <br /> DO <br /> IT.
+      </Heading>
+
+      <Box
+        bgColor='rgba(255,255,255,.1)'
+        pos='fixed'
+        bottom='25%'
+        left='50%'
+        transform='translateX(-50%)'
+        px='16px'
+        py='8px'
+        pb='16px'
+        borderRadius='5px'
+        backdropFilter='blur(15px)'
+        fontSize='20px'
+      >
+        <Text w={{ base: "300px", md: "400px" }} mb='16px'>
+          Create your unique and exclusive shirt with our brand-new 3D
+          customization tool. <strong>Unleash your imagination</strong> and
+          define your own style.
+        </Text>
+        <Center>
+          <Button
+            bgColor='magenta'
+            onClick={handleCustomize}
+            fontWeight='bold'
+            letterSpacing='wider'
+            color='white'
+            _hover={{
+              bgColor: "black",
+            }}
+          >
+            CUSTOMIZE
+          </Button>
+        </Center>
+      </Box>
     </motion.section>
   );
 }

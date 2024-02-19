@@ -10,7 +10,7 @@ import { useSnapshot } from "valtio";
 import { state } from "./store";
 import { AnimatePresence } from "framer-motion";
 import { motion } from "framer-motion";
-import { Box, Button, Center, Heading, Text } from "@chakra-ui/react";
+import { Box, Button, Center, Heading, Icon, Text } from "@chakra-ui/react";
 
 const animatePresence = {
   initial: { x: -100, opacity: 0, transition: { delay: 0.5 } },
@@ -25,7 +25,6 @@ export default function Overlay() {
     <div className='container'>
       <header>
         <Logo width='40' height='40' />
-        <AiOutlineShopping size='3em' />
       </header>
 
       <AnimatePresence>
@@ -160,22 +159,38 @@ function Customizer({ animate }) {
             ))}
           </div>
         </div>
-        <button
+        <Button
+          bgColor='magenta'
           onClick={handleDownload}
-          className='share'
-          style={{ background: snap.selectedColor }}
+          fontWeight='bold'
+          letterSpacing='wider'
+          color='white'
+          _hover={{
+            bgColor: "black",
+          }}
+          pos='fixed'
+          bottom='5%'
+          right='10%'
         >
-          DOWNLOAD
-          <AiFillCamera size='1.3em' />
-        </button>
-        <button
+          DOWNLOAD <Icon as={AiFillCamera} mt='2px' ml='4px' />
+        </Button>
+
+        <Button
+          bgColor='magenta'
           onClick={handleBack}
-          className='exit'
-          style={{ background: snap.selectedColor }}
+          fontWeight='bold'
+          letterSpacing='wider'
+          color='white'
+          _hover={{
+            bgColor: "black",
+          }}
+          pos='fixed'
+          top='5%'
+          right='10%'
         >
-          GO BACK
-          <AiOutlineArrowLeft size='1.3em' />
-        </button>
+          GO BACK{" "}
+          <Icon as={AiOutlineArrowLeft} ml='4px' mt='2px' boxSize='1.3em' />
+        </Button>
       </div>
     </motion.section>
   );
